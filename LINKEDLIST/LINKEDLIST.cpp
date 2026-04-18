@@ -5,6 +5,7 @@ struct Node{
     int data;
     struct Node* next; 
 };
+
 void traverse(struct Node* &head){
     struct Node* curr=head;
     while(curr!=nullptr){
@@ -12,6 +13,7 @@ void traverse(struct Node* &head){
         curr=curr->next;
     }
 }
+
 void insert(struct Node* &head,int val,int pos){
     struct Node* newn=new struct Node();
     newn->data=val;
@@ -29,6 +31,7 @@ void insert(struct Node* &head,int val,int pos){
         curr->next=newn;
     }
 }
+
 void del(struct Node* &head,int pos){
     if(pos==1){
         head=head->next;
@@ -42,6 +45,7 @@ void del(struct Node* &head,int pos){
 
     }
 }
+
 int main(){
     struct Node* c = new struct Node();
     c->data=40;

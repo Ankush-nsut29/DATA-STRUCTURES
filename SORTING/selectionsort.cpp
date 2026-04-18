@@ -12,22 +12,23 @@ void sort(int arr[],int size){
         // 'i' marks the boundary between the sorted part (left) and the unsorted part (right).
         
         // Assume the first element of the unsorted part is the smallest.
-        // 'mini' will store the index of the smallest element found so far.
-        int mini = i;
+        // 'minimum' will store the index of the smallest element found so far ,we assume first element of unsorted part to be min.
+        // but as we iterate throung unsorted part and if we see an element even smaller than it we will make it minimum instead
+        int minimum = i;
 
         // --- Inner loop ---
         // This loop iterates through the unsorted part of the array (from i+1 to the end)
         // to find the actual smallest element.
         for(int j = i + 1; j < size; j++){
             // If we find an element smaller than our current minimum...
-            if(arr[j] < arr[mini]){ // BUG FIX: Was arr[j] < arr[i], now correctly compares with the smallest found so far.
-                // ...we update 'mini' to be the index of that new smallest element.
-                mini = j;
+            if(arr[j] < arr[minimum]){ // BUG FIX: Was arr[j] < arr[i], now correctly compares with the smallest found so far.
+                // ...we update 'minimum' to be the index of that new smallest element.
+                minimum = j;
             }
         }
-        // After the inner loop, 'mini' holds the index of the smallest element in the unsorted part.
+        // After the inner loop, 'minimum' holds the index of the smallest element in the unsorted part.
         // We swap it with the first element of the unsorted part (at index 'i').
-        swap(arr[mini], arr[i]);
+        swap(arr[minimum], arr[i]);
     }
 }
 

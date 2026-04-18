@@ -15,7 +15,7 @@ void sort(int arr[],int size){
         // --- Inner loop ---
         // This loop performs the actual adjacent comparisons for the current pass.
         // The limit is 'size - i - 1' because after 'i' passes, the last 'i' elements are already sorted!
-        for(int j = 0 ; j < size - i - 1 ; j++){
+        for(int j = 1 ; j < size - i - 1 ; j++){
             // Compare the current element with the adjacent element to its right
             if(arr[j]>arr[j+1]){
                 // If the left element is larger, swap them to push the larger value to the right

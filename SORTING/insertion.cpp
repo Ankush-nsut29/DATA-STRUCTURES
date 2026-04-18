@@ -2,35 +2,27 @@
 using namespace std;
 
 void sort(int arr[], int size){
-    // The main logic of Insertion Sort:
-    // Think of it like sorting a hand of playing cards.
-    // You pick one card at a time from the unsorted deck and insert it 
-    // into its correct position among the already sorted cards in your hand.
-    // The array is virtually split into a sorted part (left) and an unsorted part (right).
+    // --- Swap-Based Insertion Sort Logic ---
+    // 1. The array is logically divided into a "sorted" left part and an "unsorted" right part.
+    // 2. We assume the first element (index 0) is already sorted.
+    // 3. We iterate through the unsorted part starting from index 1.
+    // 4. For each element, we compare it to the adjacent element on its left.
+    // 5. If it is smaller, we swap them. We keep swapping the element leftwards 
+    //    until it reaches its correct sorted position (or the start of the array).
 
-    // --- Outer loop ---
-    // We start at index 1 because we assume the first element (index 0) 
-    // is already a "sorted" portion of one item.
+    // Start from the second element (index 1), assuming the first element is already sorted
     for(int i = 1; i < size; i++){
-        // 'key' is the current element we want to pick up and insert into the sorted part.
-        int key = arr[i];
-        
-        // 'j' points to the last element of the sorted part (right before 'i').
-        int j = i - 1;
+        // 'j' keeps track of the current element's index as it moves backwards
+        int j = i;
 
-        // --- Inner loop (Shifting) ---
-        // We look at the sorted part from right to left (j goes down to 0).
-        // If the element we are looking at (arr[j]) is greater than our 'key',
-        // it means the 'key' belongs further to the left.
-        // So, we shift arr[j] one position to the right to make room.
-        while(j >= 0 && arr[j] > key){
-            arr[j + 1] = arr[j]; // Shift element to the right
-            j = j - 1;           // Move to the next element on the left
+        // Continue moving the element to the left as long as it's smaller 
+        // than the element before it (arr[j-1]) and we haven't reached the start (j > 0)
+        while(j > 0 && arr[j-1] > arr[j]){
+            // Swap the current element with the larger element on its left
+            swap(arr[j],arr[j-1]);
+            // Move our index one step to the left to continue checking
+            j = j - 1;
         }
-        
-        // Once we find an element smaller than the 'key' (or reach the beginning),
-        // we have found the correct empty slot (j + 1) to insert our 'key'.
-        arr[j + 1] = key;
     }
 }
 

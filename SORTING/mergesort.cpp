@@ -31,7 +31,7 @@ void merge(int arr[],int left,int mid, int right){
         if(leftArray[i]<=rightArray[j]){
             arr[k]=leftArray[i];
             k++;
-            i++
+            i++;
         }
         else{
             arr[k]=rightArray[j];

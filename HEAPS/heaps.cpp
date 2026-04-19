@@ -26,7 +26,28 @@ void insert(int arr[],int& size,int val){
             return;
         }
     }
+}
+
+void deletion(int arr[],int& size){
+    arr[1]=arr[size];
+    size--;
+    int i = 1;
+    while(i<size){
+        int left=2*i;
+        int right=2*i+1;
+        if(left<size && arr[i]<arr[left]){
+            swap(arr[i],arr[left]);
+            i=left;
+        }
+        else if(right<size && arr[i]<arr[right]){
+            swap(arr[i],arr[right]);
+            i=right;
+        }
+        else{
+            return;
+        }
     }
+}
 
 
 
@@ -37,5 +58,7 @@ int main(){
     insert(heap,size,55);
     display(heap,size);
     insert(heap,size,70);
+    display(heap,size);
+    deletion(heap,size);
     display(heap,size);
 }

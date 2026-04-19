@@ -29,22 +29,30 @@ void merge(int arr[],int left,int mid, int right){
     // Compare elements from leftArray[] and rightArray[] and place the smaller element into arr[]
     while(i<leftSize && j<rightSize){
         if(leftArray[i]<=rightArray[j]){
-            arr[k++]=leftArray[i++];
+            arr[k]=leftArray[i];
+            k++;
+            i++
         }
         else{
-            arr[k++]=rightArray[j++];
+            arr[k]=rightArray[j];
+            k++;
+            j++;
         }
     }
     
     // If there are any remaining elements in leftArray[], copy them over
     while(i<leftSize){
-        arr[k++]=leftArray[i++];
+        arr[k]=leftArray[i];
+        k++;
+        i++;
     }
     
     // If there are any remaining elements in rightArray[], copy them over
     // (Note: 'i=j<rightSize' might be a typo for 'j<rightSize')
     while(i=j<rightSize){
-        arr[k++]=rightArray[j++];
+        arr[k]=rightArray[j];
+        k++;
+        j++;
     }
 }
 

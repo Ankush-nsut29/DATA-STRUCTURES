@@ -49,7 +49,7 @@ void merge(int arr[],int left,int mid, int right){
     
     // If there are any remaining elements in rightArray[], copy them over
     // (Note: 'i=j<rightSize' might be a typo for 'j<rightSize')
-    while(i=j<rightSize){
+    while(j<rightSize){
         arr[k]=rightArray[j];
         k++;
         j++;

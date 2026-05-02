@@ -39,71 +39,34 @@ Node* insertion(Node* root,int val){
     return root;
 }
 
-// Helper function: Finds the smallest value in a subtree.
-// We need this specifically for Case 3 (Two Children).
-Node* minValueNode(Node* root) {
-    Node* current = root;
-    // Keep going left until we hit a dead end
-    while (current && current->left != nullptr) {
-        current = current->left;
+Node* deletion(Node* root, int key){
+    if(root==nullptr){
+        return nullptr;
     }
-    return current;
-}
-
-Node* deletion(Node* root, int val) {
-    // BASE CASE: If the tree is empty or we didn't find the value
-    if (root == nullptr) {
-        return root;
+    if(key>root->data){
+        root->right=deletion(root->right, key);
     }
-
-    // --- PHASE 1: SEARCHING ---
-    // This is identical to your insertion logic!
-    if (root->data > val) {
-        // The value is smaller, go left. "Catch" the updated subtree.
-        root->left = deletion(root->left, val);
+    else if(key<root->data){
+        root->left=deletion(root->left, key);
     }
-    else if (root->data < val) {
-        // The value is larger, go right. "Catch" the updated subtree.
-        root->right = deletion(root->right, val);
-    }
-    
-    // --- PHASE 2: DELETING ---
-    // If root->data == val, we found the node we want to delete!
-    else {
-        // CASE 1 & CASE 2: The node has 0 or 1 child
-        // If there is no left child, bypass this node and return the right child
-        if (root->left == nullptr) {
-            Node* temp = root->right; // Save the child (might be nullptr if it's a leaf)
-            delete root;              // Delete the current node to prevent memory leaks
-            return temp;              // Return the child to the parent (Catch and Return!)
+    else{
+        if(root->left==nullptr){
+            return root->right;
         }
-        // If there is no right child, bypass this node and return the left child
-        else if (root->right == nullptr) {
-            Node* temp = root->left;  // Save the child
-            delete root;              // Free memory
-            return temp;              // Return the child to the parent
+        else if(root->right==nullptr){
+            return root->left;
         }
+        Node* curr = root->right;
+        while(curr->left!=nullptr){
+            curr=curr->left;
+        }
+        root->data=curr->data;
 
-        // CASE 3: The node has TWO children
-        // We cannot just delete it, or we lose two subtrees!
-        
-        // Step A: Find the "In-order Successor" 
-        // (The smallest value in the right subtree)
-        Node* temp = minValueNode(root->right);
-
-        // Step B: Copy the successor's data into the current node.
-        // We are NOT deleting the current node, just replacing its value!
-        root->data = temp->data;
-
-        // Step C: Delete the successor from the right subtree.
-        // Since we copied its value, we don't need the original successor node anymore.
-        // The successor will ALWAYS be Case 1 or Case 2, so this is safe.
-        root->right = deletion(root->right, temp->data);
+        root->right=deletion(root->right, root->data);
     }
-    
-    // Finally, return the current root back up the call stack
     return root;
 }
+
 int main(){
     Node* root = new Node(4);
     Node* a = new Node(1);
@@ -113,13 +76,15 @@ int main(){
 
     root->left=a;
     root->right=b;
-    a->left=c;
+    b->left=c;
     a->right=d;
 
     inorder(root);
     cout<<endl;
-    insertion(root,3);
+    root = insertion(root,3);
     inorder(root);
     cout<<endl;
-
+    root = deletion(root,4);
+    inorder(root);
+    cout<<endl;
 }
